@@ -1,6 +1,10 @@
 # zenml-deep-learning-pipeline
 
 
+<p align="center">
+  <img src="images/banner.PNG" alt="Federated MLflow Pipeline Banner" width="500" height="300">
+</p>
+
 ## Overview
 **zenml-deep-learning-pipeline** is an end-to-end deep learning project built using **ZenML** to automate the training of **CNN models on MRI datasets** downloaded from **Kaggle**. The pipeline provides a structured and reproducible workflow covering data ingestion, preprocessing, model training, and evaluation.
 
