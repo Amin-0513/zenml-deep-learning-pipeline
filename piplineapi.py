@@ -1,37 +1,41 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, BackgroundTasks, HTTPException
 from pydantic import BaseModel
+from fastapi.middleware.cors import CORSMiddleware
 from piplines.dl_training_pipline import dl_training_pipeline
-from datasetcreation import DatasetCreation
-app = FastAPI(title="MLOPE PIPLINE API")
 
+app = FastAPI(title="MLOPS PIPELINE API")
 
 class RunRequest(BaseModel):
     username: str
 
+# ✅ CORS
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
 @app.get("/")
 def root():
-    return {
-        "message": "MLOPE PIPLINE API"
-    }
+    return {"message": "MLOPS PIPELINE API"}
+
+# ✅ Background task function
+def start_pipeline(username: str):
+    dataset_path = "./brain-tumor-mri-dataset"
+    pipeline = dl_training_pipeline(dataset_path, username)
+    pipeline.run()
 
 @app.post("/run")
-def run_pipeline(request: RunRequest):
+def run_pipeline(request: RunRequest, background_tasks: BackgroundTasks):
     try:
-        datasetCreation=  DatasetCreation()
-        dataset_path = "./brain-tumor-mri-dataset/"
+        background_tasks.add_task(start_pipeline, request.username)
 
-        dl_training_pipeline(
-            "datasetpath",
-            request.username
-        )
         return {
-            "message": "MLOPE PIPLINE API",
-            "status": "Pipeline executed successfully",
+            "status": "Pipeline started",
             "username": request.username
         }
+
     except Exception as e:
-        return {
-            "message": "MLOPE PIPLINE API",
-            "status": "Failed",
-            "error": str(e)
-        }
+        raise HTTPException(status_code=500, detail=str(e))
