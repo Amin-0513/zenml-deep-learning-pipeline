@@ -9,7 +9,7 @@ import torch
 @pipeline
 def dl_training_pipeline(data_path:str, username: str):
     """Defines the deep learning training pipeline."""
-    model_path=rf"C:\Users\Amin\Desktop\MLopps\models\brain_tumor_cnn.pth"
+    model_path="./brain_tumor_cnn.pth"
     device = "cuda" if torch.cuda.is_available() else "cpu"
     data = ingest_data_step(data_path)
     visualize(data)
