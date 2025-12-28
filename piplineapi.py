@@ -18,10 +18,10 @@ def root():
 def run_pipeline(request: RunRequest):
     try:
         datasetCreation=  DatasetCreation()
-        datasetpath=datasetCreation.create_dataset()
+        dataset_path = "./brain-tumor-mri-dataset/"
 
         dl_training_pipeline(
-            rf"{datasetpath}",
+            "{datasetpath}",
             request.username
         )
         return {
