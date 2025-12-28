@@ -32,3 +32,28 @@ This project is designed to demonstrate how ZenML can be used for **MLOps-driven
   <img src="images/banner.PNG" alt="Federated MLflow Pipeline Banner" width="500" height="300">
 </p>
 
+## Get started
+
+```bash
+# Clone the repository
+git clone https://github.com/Amin-0513/zenml-deep-learning-pipeline.git
+
+# Navigate to project directory
+cd zenml-deep-learning-pipeline
+
+# create python environment
+python -m venv mlopps
+
+# activate python environment
+mlopps\Scripts\activate
+
+# Install dependencies
+pip install -r requirments.txt
+zenml["server"]
+zenml init 
+
+## Start project
+uvicorn piplineapi:app --host 0.0.0.0 --port 5002 --reload
+
+```
+
