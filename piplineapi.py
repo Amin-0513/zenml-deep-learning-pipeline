@@ -21,7 +21,7 @@ def run_pipeline(request: RunRequest):
         dataset_path = "./brain-tumor-mri-dataset/"
 
         dl_training_pipeline(
-            "{datasetpath}",
+            "datasetpath",
             request.username
         )
         return {
